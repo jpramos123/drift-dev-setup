@@ -1,5 +1,13 @@
 #!/usr/bin/bash
 
+echo "Killing portforwards"
+if [[ "$OSTYPE" == "darwin"* ]]
+then
+	ps -a | grep "port-forward" | awk '{print $1}' | xargs -n1 kill
+else
+	pgrep oc -a | grep port-forward | awk '{print $1}' | xargs -n1 kill
+fi
+
 declare -a SERVICES=('ingress-service' 'host-inventory-service' 'system-baseline-backend-service' 'drift-backend-service' 'historical-system-profiles-backend-service' 'rbac-service')
 declare -a PORTS=('8081' '8082' '8083' '8084' '8085' '8086')
 declare -a DBS=('system-baseline-db' 'historical-system-profiles-db')

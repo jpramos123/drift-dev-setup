@@ -7,11 +7,11 @@ echo "Checking for reserved namespace"
 export NAMESPACE=$(bonfire namespace list --mine | grep "ephemeral" | awk '{print $1"|"$2}' | grep '|true' | awk -F'|' '{print $1}' | head -n1) # we use the first one available
 
 if [[ $NAMESPACE == *"ephemeral-"* ]]; then
-    echo "Namespace $NAMESPACE reserved, extending for 2 hours"    
-    bonfire namespace reserve -d 2 $NAMESPACE 
+    echo "Namespace $NAMESPACE reserved, extending for 8 hours"    
+    bonfire namespace reserve -d 8 $NAMESPACE 
 else
-    echo "Reserving namespace for 2 hours"
-    export NAMESPACE=$(bonfire namespace reserve -d 2)
+    echo "Reserving namespace for 8 hours"
+    export NAMESPACE=$(bonfire namespace reserve -d 8)
     echo "Namespace $NAMESPACE reserved"
 fi
 
